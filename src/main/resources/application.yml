@@ -1,0 +1,20 @@
+server:
+  port: 12001
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/db_demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+demo:
+  title: Demo-\u540E\u7AEF\u7BA1\u7406\u7CFB\u7EDF
+  description: \u81EA\u5DF1\u5199\u7684\u81EA\u5DF1\u7528\u7684\u81EA\u5DF1\u73A9\u7684\u7CFB\u7EDF
+  author: kangJia
+  homepage: https://ikangjia.cn/
+  net-name: \u6797\u6DF1\u65F6\u89C9\u5BD2
+  email: ikangjia.cn@outlook.com
+  version: 0.0.1
+  copyrightYear: 2022
