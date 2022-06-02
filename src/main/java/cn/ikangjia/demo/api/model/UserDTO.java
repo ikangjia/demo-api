@@ -1,30 +1,23 @@
-package cn.ikangjia.demo.entity;
+package cn.ikangjia.demo.api.model;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
 
 /**
  * @author kangJia
  * @email ikangjia.cn@outlook.com
- * @since 2022/6/1 17:29
+ * @since 2022/6/2 9:44
  */
 @Data
-@TableName("t_user")
-public class UserDO {
+@Accessors(chain = true)
+public class UserDTO {
     private long id;
-
     private String username;
-
     private String password;
-
     private String nickname;
-
     private String email;
-
     private String phone;
 
     private String address;
@@ -40,7 +33,5 @@ public class UserDO {
      * 1：删除
      * 0：未删除
      */
-    @TableLogic
-    @TableField("is_deleted")
     private boolean deleted;
 }
