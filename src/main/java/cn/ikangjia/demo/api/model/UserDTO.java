@@ -1,5 +1,6 @@
 package cn.ikangjia.demo.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -15,6 +16,8 @@ import java.time.LocalDateTime;
 public class UserDTO {
     private Long id;
     private String username;
+
+    @JsonIgnore
     private String password;
     private String nickname;
     private String email;
