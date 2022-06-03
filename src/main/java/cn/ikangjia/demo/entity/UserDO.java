@@ -1,8 +1,6 @@
 package cn.ikangjia.demo.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,7 +13,8 @@ import java.time.LocalDateTime;
 @Data
 @TableName("t_user")
 public class UserDO {
-    private long id;
+    @TableId(type = IdType.AUTO)
+    private Long id;
 
     private String username;
 

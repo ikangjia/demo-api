@@ -1,13 +1,12 @@
 package cn.ikangjia.demo.api.controller;
 
 import cn.ikangjia.demo.api.model.UserDTO;
+import cn.ikangjia.demo.api.model.UserSelectDTO;
+import cn.ikangjia.demo.api.model.UserSelectPageDTO;
 import cn.ikangjia.demo.api.rest.ResultVO;
 import cn.ikangjia.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author kangJia
@@ -24,5 +23,20 @@ public class UserController {
     @GetMapping("/{id}")
     public ResultVO<UserDTO> queryDetail(@PathVariable Long id) {
         return ResultVO.success(userService.queryDetail(id));
+    }
+
+    @GetMapping
+    public ResultVO<UserSelectPageDTO> queryUserListPage(UserSelectDTO userSelectDTO) {
+        return ResultVO.success(userService.queryUsers(userSelectDTO));
+    }
+
+    @PostMapping
+    public ResultVO<UserDTO> save(@RequestBody UserDTO userDTO) {
+        return ResultVO.success(userService.save(userDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResultVO<Integer> deleteUser(@PathVariable Long id) {
+        return ResultVO.success(userService.deleteUser(id));
     }
 }

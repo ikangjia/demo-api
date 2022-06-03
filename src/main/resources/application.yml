@@ -19,3 +19,6 @@ demo:
   email: ikangjia.cn@outlook.com
   version: 0.0.1
   copyrightYear: 2022
+logging:
+  level:
+    cn.ikangjia.demo.mapper: debug
