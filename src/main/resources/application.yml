@@ -2,6 +2,8 @@ server:
   port: 12001
 
 spring:
+  profiles:
+    active: mac
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
