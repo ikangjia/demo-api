@@ -8,6 +8,9 @@ import cn.ikangjia.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author kangJia
  * @email ikangjia.cn@outlook.com
@@ -38,5 +41,13 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResultVO<Integer> deleteUser(@PathVariable Long id) {
         return ResultVO.success(userService.deleteUser(id));
+    }
+
+    @DeleteMapping("/del/batch")
+    public ResultVO<Integer> deleteUserBatch(String ids) {
+        List<Long> idList = Arrays.stream(ids.split(","))
+                .map(Long::parseLong)
+                .toList();
+        return ResultVO.success(userService.deleteUserBatch(idList));
     }
 }

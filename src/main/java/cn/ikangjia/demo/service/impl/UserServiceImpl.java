@@ -93,4 +93,9 @@ public class UserServiceImpl implements UserService {
     public Integer deleteUser(Long id) {
         return userMapper.deleteById(id);
     }
+
+    @Override
+    public Integer deleteUserBatch(List<Long> idList) {
+        return userMapper.deleteBatchIds(idList);
+    }
 }
