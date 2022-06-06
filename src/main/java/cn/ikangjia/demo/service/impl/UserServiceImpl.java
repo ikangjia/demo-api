@@ -111,6 +111,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean exportUserDetail(HttpServletResponse response, Long id) {
         UserDO userDO = userMapper.selectById(id);
+        List<UserDO> userDOList = CollUtil.newArrayList(userDO);
+        generateExcel(response, userDOList);
+        return true;
+    }
+
+    @Override
+    public Boolean exportUserDetail(HttpServletResponse response) {
+        List<UserDO> userDOList = userMapper.selectList(null);
+        generateExcel(response, userDOList);
+        return true;
+    }
+
+    /**
+     * 生成用户信息 Excel 表格
+     *
+     * @param response   response
+     * @param userDOList 用户列表
+     */
+    private void generateExcel(HttpServletResponse response, List<UserDO> userDOList) {
         ExcelWriter writer = ExcelUtil.getWriter(true);
         writer.addHeaderAlias("id", "编号");
         writer.addHeaderAlias("username", "用户名");
@@ -124,7 +143,6 @@ public class UserServiceImpl implements UserService {
         writer.addHeaderAlias("operator", "操作人");
         writer.addHeaderAlias("deleted", "是否逻辑删除");
 
-        List<UserDO> userDOList = CollUtil.newArrayList(userDO);
         writer.write(userDOList, true);
 
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
@@ -144,6 +162,5 @@ public class UserServiceImpl implements UserService {
         }
         //此处记得关闭输出Servlet流
         IoUtil.close(out);
-        return true;
     }
 }

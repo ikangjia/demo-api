@@ -24,4 +24,6 @@ public interface UserService {
     Integer deleteUserBatch(List<Long> idList);
 
     Boolean exportUserDetail(HttpServletResponse response, Long id);
+
+    Boolean exportUserDetail(HttpServletResponse response);
 }

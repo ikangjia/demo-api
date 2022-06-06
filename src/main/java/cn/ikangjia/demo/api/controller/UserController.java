@@ -62,4 +62,13 @@ public class UserController {
     public void exportUserDetail(HttpServletResponse response, @PathVariable Long id) {
         userService.exportUserDetail(response, id);
     }
+
+    /**
+     * 导出所有用户信息
+     * @param response response
+     */
+    @GetMapping("/export")
+    public void exportUserDetail(HttpServletResponse response) {
+        userService.exportUserDetail(response);
+    }
 }
