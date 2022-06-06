@@ -4,6 +4,7 @@ import cn.ikangjia.demo.api.model.UserDTO;
 import cn.ikangjia.demo.api.model.UserSelectDTO;
 import cn.ikangjia.demo.api.model.UserSelectPageDTO;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -21,4 +22,6 @@ public interface UserService {
     Integer deleteUser(Long id);
 
     Integer deleteUserBatch(List<Long> idList);
+
+    Boolean exportUserDetail(HttpServletResponse response, Long id);
 }

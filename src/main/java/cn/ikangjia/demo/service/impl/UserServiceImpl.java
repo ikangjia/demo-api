@@ -1,5 +1,9 @@
 package cn.ikangjia.demo.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import cn.ikangjia.demo.api.model.UserDTO;
 import cn.ikangjia.demo.api.model.UserSelectDTO;
 import cn.ikangjia.demo.api.model.UserSelectPageDTO;
@@ -13,6 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,5 +106,44 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer deleteUserBatch(List<Long> idList) {
         return userMapper.deleteBatchIds(idList);
+    }
+
+    @Override
+    public Boolean exportUserDetail(HttpServletResponse response, Long id) {
+        UserDO userDO = userMapper.selectById(id);
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+        writer.addHeaderAlias("id", "编号");
+        writer.addHeaderAlias("username", "用户名");
+        writer.addHeaderAlias("nickname", "昵称");
+        writer.addHeaderAlias("password", "密码");
+        writer.addHeaderAlias("email", "邮件");
+        writer.addHeaderAlias("phone", "手机号");
+        writer.addHeaderAlias("address", "地址");
+        writer.addHeaderAlias("createTime", "创建时间");
+        writer.addHeaderAlias("updateTime", "更新时间");
+        writer.addHeaderAlias("operator", "操作人");
+        writer.addHeaderAlias("deleted", "是否逻辑删除");
+
+        List<UserDO> userDOList = CollUtil.newArrayList(userDO);
+        writer.write(userDOList, true);
+
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+        //test.xls是弹出下载对话框的文件名，不能为中文，中文请自行编码
+        String fileName = URLEncoder.encode("用户信息", StandardCharsets.UTF_8);
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        ServletOutputStream out = null;
+        try {
+            out = response.getOutputStream();
+            writer.flush(out, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // 关闭writer，释放内存
+            writer.close();
+        }
+        //此处记得关闭输出Servlet流
+        IoUtil.close(out);
+        return true;
     }
 }

@@ -8,6 +8,7 @@ import cn.ikangjia.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,5 +50,16 @@ public class UserController {
                 .map(Long::parseLong)
                 .toList();
         return ResultVO.success(userService.deleteUserBatch(idList));
+    }
+
+    /**
+     * 用户详情页面导出数据
+     *
+     * @param response response
+     * @param id       id
+     */
+    @GetMapping("/export/{id}")
+    public void exportUserDetail(HttpServletResponse response, @PathVariable Long id) {
+        userService.exportUserDetail(response, id);
     }
 }
