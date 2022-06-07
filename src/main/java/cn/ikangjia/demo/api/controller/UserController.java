@@ -24,6 +24,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PostMapping("/login")
+    public ResultVO<String> login(){
+        return ResultVO.success("登录成功");
+    }
+
     @GetMapping("/{id}")
     public ResultVO<UserDTO> queryDetail(@PathVariable Long id) {
         return ResultVO.success(userService.queryDetail(id));
