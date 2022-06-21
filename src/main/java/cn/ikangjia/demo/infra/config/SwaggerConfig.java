@@ -29,6 +29,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
+        System.out.println("Swagger 访问地址： http://localhost:12001/swagger-ui/index.html#/");
         return new Docket(DocumentationType.OAS_30)
                 .select()
                 .apis(RequestHandlerSelectors.any())
